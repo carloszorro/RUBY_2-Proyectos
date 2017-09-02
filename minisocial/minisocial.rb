@@ -1,6 +1,6 @@
 class Post
 
-  attr_accessor :body
+  attr_accessor :body #Definir los metodos getter and setter of attributs
 
   def initialize(opts = {})
     @body = opts[:body].to_s
@@ -16,7 +16,7 @@ end
 
 class User
 
-  PSW_REGEX = /\A.{8}\z/
+  PSW_REGEX = /\A.{8}\z/ #la coma antes es 8 o menos letras despues es mas de 8 letras y separa números.
   EMAIL_REGEX = /\A\p{Alnum}+@\p{Alnum}+\.com\z/
   attr_accessor :email, :password, :nickname, :posts
 
@@ -28,7 +28,7 @@ class User
               abort("Email incorrecto")
     @password = opts[:password].to_s.scan(PSW_REGEX).any? ? opts[:password] : abort("Password invalido")
     @nickname = opts[:nickname].to_s
-    @posts = opts[:posts].is_a?(Array) ? opts[:posts] : []
+    @posts = opts[:posts].is_a?(Array) ? opts[:posts] : [] #is_a es algo por default no es que compare un array
   end
 
   # crea un Post y lo agrega al arreglo de posts
@@ -217,4 +217,16 @@ while @input != 0 do
   @current_user ? logged_in_menu : menu
   @input = gets.chomp.to_i
 end
-#
+
+@users = []
+def create_user
+    require 'faker'
+    puts user = Faker::Simpsons.character
+    puts email = Faker::Internet.free_email(user)
+    @users << user
+end
+
+def seed
+  1000.times do |i|
+    create_user
+end
